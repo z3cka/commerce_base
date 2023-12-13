@@ -5,7 +5,6 @@
  * Enables modules and site configuration for a commerce_base site installation.
  */
 
-use Drupal\contact\Entity\ContactForm;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -19,10 +18,3 @@ function commerce_base_form_install_configure_form_alter(&$form, FormStateInterf
   $form['#submit'][] = 'commerce_base_form_install_configure_submit';
 }
 
-/**
- * Submission handler to sync the contact.form.feedback recipient.
- */
-function commerce_base_form_install_configure_submit($form, FormStateInterface $form_state) {
-  $site_mail = $form_state->getValue('site_mail');
-  ContactForm::load('feedback')->setRecipients([$site_mail])->trustData()->save();
-}
